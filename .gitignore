@@ -1,0 +1,27 @@
+# Terraform
+*.tfstate
+*.tfstate.backup
+.terraform/
+.tfplan
+
+# Terraform provider binaries
+Terraform/.terraform/providers/
+
+# Minikube binary
+Terraform/minikube-linux-amd64
+
+# Python / API
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.env
+
+# Docker
+*.log
+*.dockerignore
+
+# IDE / OS
+.vscode/
+.DS_Store
+
