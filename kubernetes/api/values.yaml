@@ -1,0 +1,27 @@
+replicaCount: 1
+
+image:
+  repository: IMAGE_MAIN               # replace with your registry/repo e.g. 123456789012.dkr.ecr.eu-west-3.amazonaws.com/main-api
+  tag: "latest"
+  pullPolicy: IfNotPresent
+
+service:
+  type: ClusterIP
+  port: 8080
+
+ingress:
+  enabled: false
+  host: api.local
+  path: /
+
+resources: {}
+
+env:
+  AWS_REGION: "eu-west-3"
+  AUX_URL: "http://auxiliary-svc.auxiliary.svc.cluster.local:8080" # default cluster DNS
+  SSM_PARAMETER_PREFIX: "/myapp"
+
+versions:
+  main: "0.1.0"
+  auxiliary: "0.1.0"
+

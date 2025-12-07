@@ -1,0 +1,14 @@
+<html>
+<body>
+    <h1>Frontend OK</h1>
+
+    <script>
+        fetch("/api/secret")
+            .then(r => r.json())
+            .then(data => {
+                document.body.innerHTML += `<p>Backend Response: ${data.value}</p>`;
+            });
+    </script>
+</body>
+</html>
+

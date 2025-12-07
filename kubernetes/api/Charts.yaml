@@ -1,0 +1,7 @@
+apiVersion: v2
+name: main-api
+description: Main API - exposes endpoints and calls auxiliary service
+type: application
+version: 0.1.0
+appVersion: "0.1.0"
+

@@ -1,0 +1,56 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "main-api.name" . }}
+  labels:
+    app: {{ include "main-api.name" . }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ include "main-api.name" . }}
+  template:
+    metadata:
+      labels:
+        app: {{ include "main-api.name" . }}
+    spec:
+      containers:
+        - name: main-api
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - containerPort: {{ .Values.service.port }}
+          env:
+            - name: AWS_REGION
+              value: "{{ .Values.env.AWS_REGION }}"
+            - name: AUX_URL
+              value: "{{ .Values.env.AUX_URL }}"
+            - name: SSM_PARAMETER_PREFIX
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ include "main-api.fullname" . }}-config
+                  key: SSM_PARAMETER_PREFIX
+            - name: MAIN_VERSION
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ include "main-api.fullname" . }}-config
+                  key: MAIN_VERSION
+            - name: AUX_VERSION
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ include "main-api.fullname" . }}-config
+                  key: AUX_VERSION
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: {{ .Values.service.port }}
+            initialDelaySeconds: 10
+            periodSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: {{ .Values.service.port }}
+            initialDelaySeconds: 5
+            periodSeconds: 5
+      restartPolicy: Always
+

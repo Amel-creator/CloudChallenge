@@ -1,0 +1,21 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: auxiliary-app
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: 'https://github.com/<YOUR_GITHUB_USERNAME>/<YOUR_REPO>.git'
+    targetRevision: HEAD
+    path: kubernetes/auxiliary
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: auxiliary
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+
