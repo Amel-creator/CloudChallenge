@@ -1,4 +1,5 @@
+flask
+requests
+boto3
 fastapi
 uvicorn
-boto3
-
