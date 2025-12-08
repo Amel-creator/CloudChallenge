@@ -1,22 +1,25 @@
-from fastapi import FastAPI
-import boto3
+import requests
 import os
+from fastapi import FastAPI
 
 app = FastAPI()
+AUX_URL = os.getenv("AUX_URL", "http://auxiliary-svc.auxiliary.svc.cluster.local:8080")
 
-aws_region = os.getenv("AWS_REGION", "eu-west-3")
+@app.get("/buckets")
+def list_buckets():
+    response = requests.get(f"{AUX_URL}/buckets")
+    return {
+        "main_api_version": "1.0.0",
+        "aux_service_version": response.json().get("version"),
+        "buckets": response.json().get("buckets")
+    }
 
-ssm = boto3.client("ssm", region_name=aws_region)
-
-@app.get("/")
-def health():
-    return {"status": "ok"}
-
-@app.get("/secret")
-def get_secret():
-    param = ssm.get_parameter(
-        Name=os.getenv("SSM_PARAMETER_NAME"),
-        WithDecryption=True
-    )
-    return {"value": param["Parameter"]["Value"]}
+@app.get("/parameters")
+def list_parameters():
+    response = requests.get(f"{AUX_URL}/parameters")
+    return {
+        "main_api_version": "1.0.0",
+        "aux_service_version": response.json().get("version"),
+        "parameters": response.json().get("parameters")
+    }
 
