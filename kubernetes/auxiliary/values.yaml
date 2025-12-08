@@ -1,24 +1,15 @@
+# auxiliary/values.yaml
 replicaCount: 1
 
 image:
   repository: 231838751459.dkr.ecr.us-east-1.amazonaws.com/auxiliary-service
-  tag: "latest"
-  pullPolicy: Always
+  tag: latest
+  pullPolicy: IfNotPresent
 
 service:
   type: ClusterIP
   port: 8080
 
-ingress:
-  enabled: false
-  host: aux.local
-  path: /
-
-resources: {}
-
 env:
-  AWS_REGION: "eu-west-3"
-
-versions:
-  auxiliary: "0.1.0"
+  AWS_REGION: "us-east-1"
 

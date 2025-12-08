@@ -1,7 +1,8 @@
+# api/values.yaml
 replicaCount: 1
 
 image:
-  repository: main-api
+  repository: 231838751459.dkr.ecr.us-east-1.amazonaws.com/main-api
   tag: latest
   pullPolicy: IfNotPresent
 

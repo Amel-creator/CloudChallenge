@@ -1,9 +1,0 @@
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: {{ include "main-api.fullname" . }}-config
-data:
-  MAIN_VERSION: "{{ .Values.versions.main }}"
-  AUX_VERSION: "{{ .Values.versions.auxiliary }}"
-  SSM_PARAMETER_PREFIX: "{{ .Values.env.SSM_PARAMETER_PREFIX }}"
-
