@@ -25,3 +25,5 @@ __pycache__/
 .vscode/
 .DS_Store
 
+Terraform/.terraform/
+Terraform/minikube-linux-amd64
