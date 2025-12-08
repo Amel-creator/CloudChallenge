@@ -12,5 +12,5 @@ service:
 
 env:
   AWS_REGION: "us-east-1"
-  AUX_URL: "http://auxiliary-svc.auxiliary.svc.cluster.local:8080"
+  AUX_URL: "http://auxiliary-svc.auxiliary.svc.cluster.local:8082"
 
