@@ -3,7 +3,7 @@ import os
 from fastapi import FastAPI
 
 app = FastAPI()
-AUX_URL = os.getenv("AUX_URL", "http://auxiliary-svc.auxiliary.svc.cluster.local:8080")
+AUX_URL = os.getenv("AUX_URL", "http://auxiliary-svc.auxiliary.svc.cluster.local:8082")
 
 @app.get("/buckets")
 def list_buckets():
