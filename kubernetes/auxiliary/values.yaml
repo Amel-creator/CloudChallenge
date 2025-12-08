@@ -4,7 +4,7 @@ replicaCount: 1
 image:
   repository: 231838751459.dkr.ecr.us-east-1.amazonaws.com/auxiliary-service
   tag: latest
-  pullPolicy: IfNotPresent
+  pullPolicy: Always
 
 service:
   type: ClusterIP
