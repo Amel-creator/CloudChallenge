@@ -27,3 +27,5 @@ __pycache__/
 
 Terraform/.terraform/
 Terraform/minikube-linux-amd64
+Terraform/.terraform/
+Terraform/minikube-linux-amd64
