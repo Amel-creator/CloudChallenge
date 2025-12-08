@@ -1,9 +1,9 @@
 replicaCount: 1
 
 image:
-  repository: IMAGE_MAIN               # replace with your registry/repo e.g. 123456789012.dkr.ecr.eu-west-3.amazonaws.com/main-api
+  repository: 231838751459.dkr.ecr.us-east-1.amazonaws.com/main-api
   tag: "latest"
-  pullPolicy: IfNotPresent
+  pullPolicy: Always
 
 service:
   type: ClusterIP
