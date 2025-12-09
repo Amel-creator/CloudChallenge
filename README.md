@@ -156,6 +156,7 @@ kubectl apply -f kubernetes/argocd/auxiliary-app.yaml
 argocd app list
 argocd app get main-api
 ```
+<img width="953" height="405" alt="image" src="https://github.com/user-attachments/assets/425be9b0-ab5d-49b1-b99d-2ce88d2c1906" />
 
 ## CI/CD GitHub Actions
 
@@ -211,4 +212,5 @@ helm install grafana grafana/grafana -n monitoring \
 ## Notes importantes
 
 L’accès AWS se fait via OIDC/GitHub ou IAM Roles temporaires pour plus de sécurité.
+
 
