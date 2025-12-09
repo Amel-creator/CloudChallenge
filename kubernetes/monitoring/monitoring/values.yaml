@@ -1,0 +1,15 @@
+prometheus:
+  server:
+    service:
+      type: ClusterIP
+    persistentVolume:
+      enabled: false
+
+grafana:
+  adminUser: admin
+  adminPassword: admin
+  service:
+    type: NodePort
+  persistence:
+    enabled: false
+
