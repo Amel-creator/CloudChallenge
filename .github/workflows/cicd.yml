@@ -10,7 +10,8 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: read
-      id-token: write  # Pour OIDC avec AWS
+      id-token: write
+
     steps:
       - name: Checkout repo
         uses: actions/checkout@v3
@@ -18,18 +19,27 @@ jobs:
       - name: Configure AWS credentials via OIDC
         uses: aws-actions/configure-aws-credentials@v2
         with:
-          role-to-assume: arn:aws:iam::231838751459:role/github-actions-role
+          role-to-assume: arn:aws:iam::231838751459:role/github-actions-role-test
           aws-region: us-east-1
 
+      - name: Login to Amazon ECR
+        run: |
+          aws ecr get-login-password --region us-east-1 \
+          | docker login --username AWS --password-stdin 231838751459.dkr.ecr.us-east-1.amazonaws.com
+
       - name: Build Docker image
-        run: docker build -t main-api:latest ./api
+        run: docker build --no-cache -t main-api:latest ./api
 
       - name: Tag & Push image to ECR
         run: |
+          # Short SHA (12 chars) to tag valid docker
+          IMAGE_TAG=$(echo ${GITHUB_SHA} | cut -c1-12)
+          echo "Docker tag: $IMAGE_TAG"
+
+          # Tag of the images
           docker tag main-api:latest 231838751459.dkr.ecr.us-east-1.amazonaws.com/main-api:latest
+          docker tag main-api:latest 231838751459.dkr.ecr.us-east-1.amazonaws.com/main-api:$IMAGE_TAG
+
+          # Push
           docker push 231838751459.dkr.ecr.us-east-1.amazonaws.com/main-api:latest
-
-      - name: Update Kubernetes deployment
-        run: |
-          kubectl set image deployment/main-api-main-api main-api=231838751459.dkr.ecr.us-east-1.amazonaws.com/main-api:latest -n main-api
-
+          docker push 231838751459.dkr.ecr.us-east-1.amazonaws.com/main-api:$IMAGE_TAG
